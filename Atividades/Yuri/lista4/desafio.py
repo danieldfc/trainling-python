@@ -1,10 +1,14 @@
-number = int(input('Informe um número -> '))
+number = int(input('\033[1;33mInforme um número -> '))
 
-unorderedList = []
-counter = 0
+orderedList = []
 
 while number != 0:
-  while counter < len(unorderedList):
-    if unorderedList[]
-    counter+=1  
-  number = int(input('Informe outro número -> '))
+  for index, value in enumerate(orderedList):
+    if number < value:
+        orderedList.insert(index, number)
+        break
+  else:
+      orderedList.append(number)
+  number = int(input('\033[1;33mInforme um número -> '))
+
+print('\033[1;32m> Lista = \033[0;31m{}'.format(orderedList))
