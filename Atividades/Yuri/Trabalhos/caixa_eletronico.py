@@ -1,5 +1,10 @@
 import sys
 
+amountCem = 0
+amountCinquenta = 0
+amountVinte = 0
+amountCinco = 0
+
 def menu():
   print('='*30)
   print('{:^30}'.format('CAIXA ELETRÔNICO'))
@@ -22,21 +27,23 @@ def checksQuantityOfBanknotes(money):
   while True:
     if money >= ced:
       money -= ced
-      if ced == 100:
+      if amountCem > totalCedulasCem:
         totalCedulasCem += 1
-      elif ced == 50:
+      else:
+        ced = 50
         totalCedulasCinquenta += 1
+    else:
+      if ced == 50:
+        totalCedulasCinquenta += 1
+        if totalCedulasCinquenta > amountCinquenta:
+          ced = 20
       elif ced == 20:
         totalCedulasVinte += 1
+        if totalCedulasVinte > amountVinte:
+          ced = 5
       elif ced == 5:
         totalCedulasCinco += 1
-    else:
-      if ced == 100:
-        ced = 50
-      elif ced == 50:
-        ced = 20
-      elif ced == 20:
-        ced = 5
+      money -= ced
       if money == 0:
         break
 
@@ -44,10 +51,6 @@ def checksQuantityOfBanknotes(money):
 
 opc = menu()
 
-amountCem = 0
-amountCinquenta = 0
-amountVinte = 0
-amountCinco = 0
 
 while opc > 0 and opc < 4:
   if opc == 1:
