@@ -2,10 +2,10 @@ def menu():
   print('\033[0;33m='*30)
   print('{:^30}'.format('CAIXA ELETRÔNICO'))
   print('='*30+'\n')
-  print('1 - CARREGAR CAIXA ELETÔNICO')
+  print('1 - CARREGAR CAIXA ELETRÔNICO')
   print('2 - SACAR DINHEIRO')
   print('3 - SAIR\n')
-  opc = int(input('Opção -> '))
+  opc = int(input('\033[0;35mOpção -> '))
 
   return opc
 
@@ -68,8 +68,12 @@ opc = menu()
 
 while opc > 0 and opc < 4:
   if opc == 1:
+    print('\033[0;33m')
+    print('='*30)
+    print('{:^30}'.format('ARMAZENAR NOTAS'))
+    print('='*30)
     quantCem, quantCinquenta, quantVinte, quantCinco = map(int,
-      input('Digite a quantidade de notas separadamente, os ' +
+      input('\033[0;34m\nDigite a quantidade de notas separadamente, os ' +
         'tipos são: (100, 50, 20, 5) -> ').split())
     
     amountCem += quantCem
@@ -79,10 +83,14 @@ while opc > 0 and opc < 4:
 
     print('\033[0;32m\nO caixa eletrônico armazenou as notas!\n')
   elif opc == 2:
+    print('\033[0;33m')
+    print('='*30)
+    print('{:^30}'.format('SACAR NOTAS'))
+    print('='*30)
     if amountCem == 0 and amountCinquenta == 0 and amountVinte == 0 and amountCinco == 0:
       print('\033[0;31m\nNão possui recursos para fazer o saque!\n')
     else:
-      totalSaque = int(input('Informe qual o valor que você quer sacar -> R$'))
+      totalSaque = int(input('\033[0;34m\nInforme qual o valor que você quer sacar -> R$'))
       quantCem, quantCinquenta, quantVinte, quantCinco = checksQuantityOfBanknotes(totalSaque)
       if not checkTotalNotas(quantCem, 100) or not checkTotalNotas(quantCinquenta, 50) or not checkTotalNotas(quantVinte, 20) or not checkTotalNotas(quantCinco, 5):
         print('\033[0;31m\nNão possui recursos para fazer o saque!\n')
