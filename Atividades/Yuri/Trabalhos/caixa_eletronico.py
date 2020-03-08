@@ -3,110 +3,111 @@
 
 def menu():
     print('\033[0;33m='*30)
-    print(f'{"BANCO DEV":^30}'.format(''))
+    print(f'{"DEV BANK":^30}'.format(''))
     print('='*30+'\n')
-    print('1 - CARREGAR CAIXA ELETRÔNICO')
-    print('2 - SACAR DINHEIRO')
-    print('3 - SAIR\n')
-    opc = int(input('\033[0;35mOpção -> '))
+    print('1 - LOAD ELECTRONIC BOX')
+    print('2 - CASH MONEY')
+    print('3 - GO OUT\n')
+    opt = int(input('\033[0;35mOption -> '))
 
-    return opc
+    return opt
 
 
-def contador_notas(preco):
-    quant100 = preco // 100
-    preco %= 100
+def counter_banknotes(price):
+    amount100 = price // 100
+    price %= 100
 
-    quant50 = preco // 50
-    preco %= 50
+    amount50 = price // 50
+    price %= 50
 
-    quant20 = preco // 20
-    preco %= 20
+    amount20 = price // 20
+    price %= 20
 
-    quant10 = preco // 10
-    preco %= 10
+    amount10 = price // 10
+    price %= 10
 
-    quant5 = preco // 5
-    preco %= 5
+    amount5 = price // 5
+    price %= 5
 
-    if quant100 > notas100 or quant50 > notas50 or quant20 > notas20 or quant10 > notas10 or quant5 > notas5:
+    if amount100 > banknotes100 or amount50 > banknotes50 or amount20 > banknotes20 or amount10 > banknotes10 or amount5 > banknotes5:
         return 0
 
-    return [quant100, quant50, quant20, quant10, quant5]
+    return [amount100, amount50, amount20, amount10, amount5]
 
 
-notas100 = 0
-notas50 = 0
-notas20 = 0
-notas10 = 0
-notas5 = 0
+banknotes100 = 0
+banknotes50 = 0
+banknotes20 = 0
+banknotes10 = 0
+banknotes5 = 0
 total = 0
 
-opc = menu()
+opt = menu()
 
-while opc > 0 and opc < 4:
-    if opc == 1:
+while opt > 0 and opt < 4:
+    if opt == 1:
         print(
-            '\033[0;33m\n> Informe separadamente a quantidade de notas para (100, 50, 20, 10, 5)')
+            '\033[0;33m\n> Enter the number of notes separately for (100, 50, 20, 10, 5)')
         print('\nEx.: 1 2 3 4 5\n')
-        print('Resultado: 100=1 50=2 20=3 10=4 5=5\n')
+        print('Result: 100=1 50=2 20=3 10=4 5=5\n')
 
-        quant100, quant50, quant20, quant10, quant5, = map(
+        amount100, amount50, amount20, amount10, amount5, = map(
             int, input('\033[0;35m> ').split())
 
-        notas100 += quant100
-        notas50 += quant50
-        notas20 += quant20
-        notas10 += quant10
-        notas5 += quant5
+        banknotes100 += amount100
+        banknotes50 += amount50
+        banknotes20 += amount20
+        banknotes10 += amount10
+        banknotes5 += amount5
 
-        total += (notas100 * 100) + (notas50 * 50) + \
-            (notas20 * 20) + (notas10 * 10) + (notas5 * 5)
+        total += (banknotes100 * 100) + (banknotes50 * 50) + \
+            (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
 
         if total == 0:
             print(
-                f'\033[1;32m\n** O caixa foi não foi abaslecido. Total em caixa -> \033[1;31mR$ {total},00\033[0;32m **\n')
+                f'\033[1;32m\n** The cashier was not replenished. Total in cash -> \033[1;31mR$ {total},00\033[0;32m **\n')
         else:
             print(
-                f'\033[1;32m\n** O caixa foi abaslecido. Total em caixa -> \033[1;31mR$ {total},00\033[0;32m **\n')
-    elif opc == 2:
-        if notas100 == 0 and notas50 == 0 and notas20 == 0 and notas10 == 0 and notas5 == 0:
+                f'\033[1;32m\n** The cashier was replenished. Total in cash -> \033[1;31mR$ {total},00\033[0;32m **\n')
+    elif opt == 2:
+        if banknotes100 == 0 and banknotes50 == 0 and banknotes20 == 0 and banknotes10 == 0 and banknotes5 == 0:
             print(
-                '\033[1;31m\n** O caixa não possui notas disponível, por favor abasteça **\n')
+                '\033[1;31m\n** The cashier has no notes available, please refill **\n')
         else:
-            print('\033[0;33m\nInforme um valor total inteiro, que quer sacar')
+            print('\033[0;33m\n> Enter a total amount that you want to withdraw')
             print('\nEx.: 200\n')
-            print('Resultado: 100=2 50=0 20=0 10=0 5=0')
-            print(f'\033[1;32m\nSALDO ATUAL -> R$ {total},00\n')
-            print('\033[0;33mQuantidade de notas armazenadas -> 100={} 50={} 20={} 10={} 5={}\n'.format(
-                notas100, notas50, notas20, notas10, notas5))
+            print('Result: 100=2 50=0 20=0 10=0 5=0')
+            print(f'\033[1;32m\n Current balance -> R$ {total},00\n')
+            print(
+                f'\033[0;33mAmount of banknotes stored -> 100={banknotes100} 50={banknotes50} 20={banknotes20} 10={banknotes10} 5={banknotes5}\n')
 
-            preco = int(input('\033[0;35m> R$ '))
-            notas = contador_notas(preco)
+            price = int(input('\033[0;35m> R$ '))
+            banknotes = counter_banknotes(price)
 
-            if notas == 0:
+            if banknotes == 0:
                 print(
-                    '\033[1;31m\n** Não foi possível efetuar o saque, verifique a quantidade de notas **\n')
+                    '\033[1;31m\n** Unable to withdraw, check the amount of banknotes **\n')
                 print(
-                    f'\033[0;33mQuantidade de notas armazenadas -> 100={notas100} 50={notas50} 20={notas20} 10={notas10} 5={notas5}\n')
+                    f'\033[0;33mAmount of banknotes stored -> 100={banknotes100} 50={banknotes50} 20={banknotes20} 10={banknotes10} 5={banknotes5}\n')
 
             else:
-                notas100 -= notas[0]
-                notas50 -= notas[1]
-                notas20 -= notas[2]
-                notas10 -= notas[3]
-                notas5 -= notas[4]
+                banknotes100 -= banknotes[0]
+                banknotes50 -= banknotes[1]
+                banknotes20 -= banknotes[2]
+                banknotes10 -= banknotes[3]
+                banknotes5 -= banknotes[4]
 
-                print(notas100, notas50, notas20, notas10, notas5)
+                print(banknotes100, banknotes50,
+                      banknotes20, banknotes10, banknotes5)
                 print(total)
 
-                total = (notas100 * 100) + (notas50 * 50) + \
-                    (notas20 * 20) + (notas10 * 10) + (notas5 * 5)
+                total = (banknotes100 * 100) + (banknotes50 * 50) + \
+                    (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
                 print(
-                    '\033[1;32m\n** Seu saque foi completado. Total em caixa -> \033[1;31mR$ {},00\033[0;32m **\n'.format(total))
+                    f'\033[1;32m\n** Your loot has been completed. Total in cash -> \033[1;31mR$ {total},00\033[0;32m **\n')
                 print(
-                    f'\033[0;33mQuantidade de notas armazenadas -> 100={notas100} 50={notas50} 20={notas20} 10={notas10} 5={notas5}\n')
-    elif opc == 3:
-        print('\033[1;32m\n** Obrigado pela preferência, volte sempre! **\n')
+                    f'\033[0;33mAmount of banknotes stored -> 100={banknotes100} 50={banknotes50} 20={banknotes20} 10={banknotes10} 5={banknotes5}\n')
+    elif opt == 3:
+        print('\033[1;32m\n** Thanks for your preference, always come back! **\n')
         exit()
-    opc = menu()
+    opt = menu()
