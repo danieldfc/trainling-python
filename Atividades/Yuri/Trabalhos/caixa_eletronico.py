@@ -35,7 +35,7 @@ def counter_banknotes(price):
     return [amount100, amount50, amount20, amount10, amount5]
 
 
-def carregar_notas(amount100, amount50, amount20, amount10, amount5):
+def load_banknotes(amount100, amount50, amount20, amount10, amount5):
     global banknotes100, banknotes50, banknotes20, banknotes10, banknotes5, total
 
     banknotes100 += amount100
@@ -84,7 +84,7 @@ while opt > 0 and opt < 4:
         amount100, amount50, amount20, amount10, amount5, = map(
             int, input('\033[0;35m> ').split())
 
-        total_final = carregar_notas(
+        total_final = load_banknotes(
             amount100, amount50, amount20, amount10, amount5)
 
         if total == 0:
