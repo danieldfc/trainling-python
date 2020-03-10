@@ -84,7 +84,7 @@ while opt > 0 and opt < 4:
         amount100, amount50, amount20, amount10, amount5, = map(
             int, input('\033[0;35m> ').split())
 
-        total_final = load_banknotes(
+        total = load_banknotes(
             amount100, amount50, amount20, amount10, amount5)
 
         if total == 0:
