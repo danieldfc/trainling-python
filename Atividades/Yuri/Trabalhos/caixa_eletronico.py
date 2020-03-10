@@ -50,7 +50,7 @@ def load_banknotes(amount100, amount50, amount20, amount10, amount5):
     return total
 
 
-def saque(banknotes):
+def withdraw(banknotes):
     global banknotes100, banknotes50, banknotes20, banknotes10, banknotes5, total
 
     banknotes100 -= banknotes[0]
