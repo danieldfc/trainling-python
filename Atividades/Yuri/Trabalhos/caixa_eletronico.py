@@ -35,6 +35,36 @@ def counter_banknotes(price):
     return [amount100, amount50, amount20, amount10, amount5]
 
 
+def carregar_notas(amount100, amount50, amount20, amount10, amount5):
+    global banknotes100, banknotes50, banknotes20, banknotes10, banknotes5, total
+
+    banknotes100 += amount100
+    banknotes50 += amount50
+    banknotes20 += amount20
+    banknotes10 += amount10
+    banknotes5 += amount5
+
+    total += (banknotes100 * 100) + (banknotes50 * 50) + \
+        (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
+
+    return total
+
+
+def saque(banknotes):
+    global banknotes100, banknotes50, banknotes20, banknotes10, banknotes5, total
+
+    banknotes100 -= banknotes[0]
+    banknotes50 -= banknotes[1]
+    banknotes20 -= banknotes[2]
+    banknotes10 -= banknotes[3]
+    banknotes5 -= banknotes[4]
+
+    total = (banknotes100 * 100) + (banknotes50 * 50) + \
+        (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
+
+    return total
+
+
 banknotes100 = 0
 banknotes50 = 0
 banknotes20 = 0
@@ -54,14 +84,8 @@ while opt > 0 and opt < 4:
         amount100, amount50, amount20, amount10, amount5, = map(
             int, input('\033[0;35m> ').split())
 
-        banknotes100 += amount100
-        banknotes50 += amount50
-        banknotes20 += amount20
-        banknotes10 += amount10
-        banknotes5 += amount5
-
-        total += (banknotes100 * 100) + (banknotes50 * 50) + \
-            (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
+        total_final = carregar_notas(
+            amount100, amount50, amount20, amount10, amount5)
 
         if total == 0:
             print(
@@ -91,18 +115,8 @@ while opt > 0 and opt < 4:
                     f'\033[0;33mAmount of banknotes stored -> 100={banknotes100} 50={banknotes50} 20={banknotes20} 10={banknotes10} 5={banknotes5}\n')
 
             else:
-                banknotes100 -= banknotes[0]
-                banknotes50 -= banknotes[1]
-                banknotes20 -= banknotes[2]
-                banknotes10 -= banknotes[3]
-                banknotes5 -= banknotes[4]
+                total = saque(banknotes)
 
-                print(banknotes100, banknotes50,
-                      banknotes20, banknotes10, banknotes5)
-                print(total)
-
-                total = (banknotes100 * 100) + (banknotes50 * 50) + \
-                    (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
                 print(
                     f'\033[1;32m\n** Your loot has been completed. Total in cash -> \033[1;31mR$ {total},00\033[0;32m **\n')
                 print(
