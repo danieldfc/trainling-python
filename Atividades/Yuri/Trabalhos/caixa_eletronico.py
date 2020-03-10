@@ -115,7 +115,7 @@ while opt > 0 and opt < 4:
                     f'\033[0;33mAmount of banknotes stored -> 100={banknotes100} 50={banknotes50} 20={banknotes20} 10={banknotes10} 5={banknotes5}\n')
 
             else:
-                total = saque(banknotes)
+                total = withdraw(banknotes)
 
                 print(
                     f'\033[1;32m\n** Your loot has been completed. Total in cash -> \033[1;31mR$ {total},00\033[0;32m **\n')
