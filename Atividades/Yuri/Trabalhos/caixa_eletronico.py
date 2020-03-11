@@ -14,23 +14,59 @@ def menu():
 
 
 def counter_banknotes(price):
-    amount100 = price // 100
-    price %= 100
+    amount100 = 0
+    amount50 = 0
+    amount20 = 0
+    amount10 = 0
+    amount5 = 0
 
-    amount50 = price // 50
-    price %= 50
+    cedula = 100
 
-    amount20 = price // 20
-    price %= 20
-
-    amount10 = price // 10
-    price %= 10
-
-    amount5 = price // 5
-    price %= 5
-
-    if amount100 > banknotes100 or amount50 > banknotes50 or amount20 > banknotes20 or amount10 > banknotes10 or amount5 > banknotes5:
-        return 0
+    while price > 0:
+        if amount100 < banknotes100:
+            if amount100 == banknotes100:
+                cedula = 50
+            else:
+                amount100 += 1
+                price -= cedula
+        else:
+            if cedula == 100 or cedula == 50:
+                cedula = 50
+                if amount50 < banknotes50:
+                    if price >= cedula:
+                        price -= 50
+                        amount50 += 1
+                    else:
+                        cedula = 20
+                else:
+                    cedula = 20
+            elif cedula == 20:
+                if amount20 < banknotes20:
+                    if price >= cedula:
+                        price -= 20
+                        amount20 += 1
+                    else:
+                        cedula = 20
+                else:
+                    cedula = 10
+            elif cedula == 10:
+                if amount10 < banknotes10:
+                    if price >= cedula:
+                        price -= 10
+                        amount10 += 1
+                    else:
+                        cedula = 20
+                else:
+                    cedula = 5
+            elif cedula == 5:
+                if amount5 < banknotes5:
+                    if price >= cedula:
+                        price -= 5
+                        amount5 += 1
+                    else:
+                        cedula = 20
+                else:
+                    return 0
 
     return [amount100, amount50, amount20, amount10, amount5]
 
@@ -81,7 +117,7 @@ while opt > 0 and opt < 4:
         print('\nEx.: 1 2 3 4 5\n')
         print('Result: 100=1 50=2 20=3 10=4 5=5\n')
 
-        amount100, amount50, amount20, amount10, amount5, = map(
+        amount100, amount50, amount20, amount10, amount5 = map(
             int, input('\033[0;35m> ').split())
 
         total = load_banknotes(
