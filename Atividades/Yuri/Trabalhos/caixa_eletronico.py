@@ -22,53 +22,52 @@ def counter_banknotes(price):
 
     cedula = 100
 
-    while price > 0:
-        if amount100 < banknotes100:
-            if amount100 == banknotes100:
-                cedula = 50
-            else:
-                amount100 += 1
-                price -= cedula
-        else:
-            if cedula == 100 or cedula == 50:
-                cedula = 50
-                if amount50 < banknotes50:
-                    if price >= cedula:
-                        price -= 50
+    if price <= 0:
+        return 0
+    else:
+        while True:
+            if price >= cedula:
+                if cedula == 100:
+                    if amount100 < banknotes100:
+                        price -= cedula
+                        amount100 += 1
+                    else:
+                        cedula = 50
+                elif cedula == 50:
+                    if amount50 < banknotes50:
+                        price -= cedula
                         amount50 += 1
                     else:
                         cedula = 20
-                else:
-                    cedula = 20
-            elif cedula == 20:
-                if amount20 < banknotes20:
-                    if price >= cedula:
-                        price -= 20
+                elif cedula == 20:
+                    if amount20 < banknotes20:
+                        price -= cedula
                         amount20 += 1
                     else:
-                        cedula = 20
-                else:
-                    cedula = 10
-            elif cedula == 10:
-                if amount10 < banknotes10:
-                    if price >= cedula:
-                        price -= 10
+                        cedula = 10
+                elif cedula == 10:
+                    if amount10 < banknotes10:
+                        price -= cedula
                         amount10 += 1
                     else:
-                        cedula = 20
-                else:
-                    cedula = 5
-            elif cedula == 5:
-                if amount5 < banknotes5:
-                    if price >= cedula:
-                        price -= 5
+                        cedula = 5
+                elif cedula == 5:
+                    if amount5 < banknotes5:
+                        price -= cedula
                         amount5 += 1
-                    else:
-                        cedula = 20
-                else:
-                    return 0
+            else:
+                if cedula == 100:
+                    cedula = 50
+                elif cedula == 50:
+                    cedula = 20
+                elif cedula == 20:
+                    cedula = 10
+                elif cedula == 10:
+                    cedula = 5
+                if price == 0:
+                    break
 
-    return [amount100, amount50, amount20, amount10, amount5]
+        return [amount100, amount50, amount20, amount10, amount5]
 
 
 def load_banknotes(amount100, amount50, amount20, amount10, amount5):
@@ -80,7 +79,7 @@ def load_banknotes(amount100, amount50, amount20, amount10, amount5):
     banknotes10 += amount10
     banknotes5 += amount5
 
-    total += (banknotes100 * 100) + (banknotes50 * 50) + \
+    total = (banknotes100 * 100) + (banknotes50 * 50) + \
         (banknotes20 * 20) + (banknotes10 * 10) + (banknotes5 * 5)
 
     return total
@@ -88,6 +87,9 @@ def load_banknotes(amount100, amount50, amount20, amount10, amount5):
 
 def withdraw(banknotes):
     global banknotes100, banknotes50, banknotes20, banknotes10, banknotes5, total
+
+    print(f'\033[1;33m\n** The withdrawn notes were: 100={banknotes[0]}, 50={banknotes[1]}, 20={banknotes[2]},',
+          f'10={banknotes[3]}, 5={banknotes[4]} **')
 
     banknotes100 -= banknotes[0]
     banknotes50 -= banknotes[1]
@@ -160,4 +162,4 @@ while opt > 0 and opt < 4:
     elif opt == 3:
         print('\033[1;32m\n** Thanks for your preference, always come back! **\n')
         exit()
-    opt = menu()
+print('\033[1;31m\n** Invalid option, restart and try again! **\n')
