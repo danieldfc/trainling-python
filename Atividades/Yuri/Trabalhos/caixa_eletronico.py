@@ -20,50 +20,50 @@ def counter_banknotes(price):
     amount10 = 0
     amount5 = 0
 
-    cedula = 100
+    ballot = 100
 
     if price <= 0:
         return 0
     else:
         while True:
-            if price >= cedula:
-                if cedula == 100:
+            if price >= ballot:
+                if ballot == 100:
                     if amount100 < banknotes100:
-                        price -= cedula
+                        price -= ballot
                         amount100 += 1
                     else:
-                        cedula = 50
-                elif cedula == 50:
+                        ballot = 50
+                elif ballot == 50:
                     if amount50 < banknotes50:
-                        price -= cedula
+                        price -= ballot
                         amount50 += 1
                     else:
-                        cedula = 20
-                elif cedula == 20:
+                        ballot = 20
+                elif ballot == 20:
                     if amount20 < banknotes20:
-                        price -= cedula
+                        price -= ballot
                         amount20 += 1
                     else:
-                        cedula = 10
-                elif cedula == 10:
+                        ballot = 10
+                elif ballot == 10:
                     if amount10 < banknotes10:
-                        price -= cedula
+                        price -= ballot
                         amount10 += 1
                     else:
-                        cedula = 5
-                elif cedula == 5:
+                        ballot = 5
+                elif ballot == 5:
                     if amount5 < banknotes5:
-                        price -= cedula
+                        price -= ballot
                         amount5 += 1
             else:
-                if cedula == 100:
-                    cedula = 50
-                elif cedula == 50:
-                    cedula = 20
-                elif cedula == 20:
-                    cedula = 10
-                elif cedula == 10:
-                    cedula = 5
+                if ballot == 100:
+                    ballot = 50
+                elif ballot == 50:
+                    ballot = 20
+                elif ballot == 20:
+                    ballot = 10
+                elif ballot == 10:
+                    ballot = 5
                 if price == 0:
                     break
 
