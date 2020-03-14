@@ -162,4 +162,6 @@ while opt > 0 and opt < 4:
     elif opt == 3:
         print('\033[1;32m\n** Thanks for your preference, always come back! **\n')
         exit()
+    opt = menu()
+
 print('\033[1;31m\n** Invalid option, restart and try again! **\n')
