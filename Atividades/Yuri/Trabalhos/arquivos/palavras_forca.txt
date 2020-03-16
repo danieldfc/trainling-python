@@ -94,7 +94,7 @@ abduzir
 bumbum
 jarra
 tesouro
-infusão
+infusao
 banho
 telha
 amargo
