@@ -55,8 +55,8 @@ def menu():
     print('='*30+'\n')
 
 
-arquivo = open('arquivos/palavras_forca.txt', 'r')
-words = arquivo.readlines()
+file = open('arquivos/palavras_forca.txt', 'r')
+words = file.readlines()
 
 list_letters_words = []
 list_letters = []
