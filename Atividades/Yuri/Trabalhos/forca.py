@@ -1,162 +1,164 @@
 from random import randrange
 
 
-def create_lista_letras_palavra(palavra):
-    lista_letras_palavra = []
+def create_list_letters_word(word):
+    list_letters_word = []
 
-    for i in range(0, len(palavra) - 1):
-        lista_letras_palavra.append(palavra[i])
+    for i in range(0, len(word) - 1):
+        list_letters_word.append(word[i])
 
-    return lista_letras_palavra
+    return list_letters_word
 
 
-def verify_letra_palavra(palavra, letra):
-    for i in range(len(palavra)):
-        if letra in palavra[i]:
+def verify_letter_word(word, letter):
+    for i in range(len(word)):
+        if letter in word[i]:
             return True
 
     return False
 
 
-def verify_amount_character(palavra, letra):
+def verify_amount_character(word, letter):
     cont = 0
-    lista_indices = []
+    list_indexes = []
 
-    for i in range(len(palavra)):
-        if letra in palavra[i]:
-            lista_indices.append(i)
+    for i in range(len(word)):
+        if letter in word[i]:
+            list_indexes.append(i)
             cont += 1
 
-    return cont, lista_indices
+    return cont, list_indexes
 
 
-def check_letter_already_entered(lista_letras_informadas, letra):
+def check_letter_already_entered(list_letters_informed, letter):
     cont = 0
-    for i in range(len(lista_letras_informadas)):
-        if letra in lista_letras_informadas[i]:
+    for i in range(len(list_letters_informed)):
+        if letter in list_letters_informed[i]:
             cont += 1
         if cont > 1:
             return True
     return False
 
 
-initial_life = 1
-total_life = 6
-amount_palavras = -1
+life = 1
+canches = 6
+amount_words = -1
 
 
 def menu():
-    global initial_life, total_life, amount_palavras
+    global life, canches, amount_words
     print()
     print('\033[1;33m='*30)
-    print(f'{"FORCA":^30}\n')
-    print(f'VIDA = {initial_life}')
-    print(f'CHANCES = {total_life}')
+    print(f'{"FORCE":^30}\n')
+    print(f'LIFE = {life}')
+    print(f'CHANCES = {canches}')
     print('='*30+'\n')
 
 
 arquivo = open('arquivos/palavras_forca.txt', 'r')
-palavras = arquivo.readlines()
+words = arquivo.readlines()
 
-lista_letras_palavras = []
-lista_letras = []
+list_letters_words = []
+list_letters = []
 
-for i in range(len(palavras)):
-    lista_letras_palavras.append(palavras[i])
-    amount_palavras += 1
-for j in range(0, len(lista_letras_palavras)):
-    lista_letras.append(create_lista_letras_palavra(palavras[j]))
+for i in range(len(words)):
+    list_letters_words.append(words[i])
+    amount_words += 1
+for j in range(0, len(list_letters_words)):
+    list_letters.append(create_list_letters_word(words[j]))
 
-if amount_palavras >= 0:
+if amount_words >= 0:
     menu()
     continuar = True
 
-    while initial_life <= total_life:
-        cont_palavra = randrange(0, amount_palavras)
+    while life <= canches:
+        cont_word = randrange(0, amount_words)
 
         if continuar:
-            cont_letra = 0
-            palavra_incompleta = '_' * len(lista_letras[cont_palavra])
-            palavra_completa = ''
+            cont_letter = 0
+            word_incomplete = '_' * len(list_letters[cont_word])
+            word_complete = ''
 
-            lista_letras_informadas = []
-            while cont_letra < len(lista_letras[cont_palavra]):
-                if initial_life > 6:
+            list_letters_informed = []
+            while cont_letter < len(list_letters[cont_word]):
+                if life > 6:
                     break
                 else:
-                    if palavra_completa != '':
+                    if word_complete != '':
                         print(
-                            f'\033[1;33mPALAVRA SECRETA -> {palavra_completa}\n')
+                            f'\033[1;33mWORD SECRET -> {word_complete}\n')
                     else:
                         print(
-                            f'\033[1;33mPALAVRA SECRETA -> {palavra_incompleta}\n')
-                    letra = str.lower(
-                        input('\033[1;35m> INFORME UMA LETRA -> '))
-                    lista_letras_informadas.append(letra)
+                            f'\033[1;33mWORD SECRET -> {word_incomplete}\n')
+                    letter = str.lower(
+                        input('\033[1;35m> REPORT A LETTER -> '))
+                    list_letters_informed.append(letter)
 
-                    if check_letter_already_entered(lista_letras_informadas, letra) == False:
-                        if len(letra) == 1:
-                            if verify_letra_palavra(lista_letras[cont_palavra], letra) == False:
-                                initial_life += 1
+                    if check_letter_already_entered(list_letters_informed, letter) == False:
+                        if len(letter) == 1:
+                            if verify_letter_word(list_letters[cont_word], letter) == False:
+                                life += 1
+                                canches -= 1
                             else:
-                                cont_character, indices = verify_amount_character(
-                                    lista_letras[cont_palavra], letra)
-                                for indice in indices:
-                                    if palavra_completa == '':
-                                        palavra_completa = palavra_incompleta[:indice] + \
-                                            letra + \
-                                            palavra_incompleta[indice+1:]
+                                cont_character, indexes = verify_amount_character(
+                                    list_letters[cont_word], letter)
+                                for indice in indexes:
+                                    if word_complete == '':
+                                        word_complete = word_incomplete[:indice] + \
+                                            letter + \
+                                            word_incomplete[indice+1:]
                                     else:
-                                        palavra_completa = palavra_completa[:indice] + \
-                                            letra + palavra_completa[indice+1:]
-                                cont_letra += cont_character
-                            if initial_life <= 6:
+                                        word_complete = word_complete[:indice] + \
+                                            letter + word_complete[indice+1:]
+                                cont_letter += cont_character
+                            if life <= 6:
                                 print(
-                                    f'\033[1;36m\nVIDA = {initial_life}\nCHANCES = {total_life}\n')
-                                if cont_letra == len(lista_letras[cont_palavra]):
+                                    f'\033[1;36m\nLIFE = {life}\nCHANCES = {canches}\n')
+                                if cont_letter == len(list_letters[cont_word]):
                                     print(
-                                        f'\033[1;33mPALAVRA SECRETA -> {palavra_completa}\n')
+                                        f'\033[1;33mWORD SECRET -> {word_complete}\n')
                         else:
                             print(
-                                f'\033[1;36m\nVIDA = {initial_life}\nCHANCES = {total_life}')
+                                f'\033[1;36m\LIFE = {life}\nCHANCES = {canches}')
                             print(
-                                '\033[1;31m\n** Coloque apenas uma letra **\n')
+                                '\033[1;31m\n** PLEASE ENTER ONLY ONE LETTER **\n')
                     else:
                         print(
-                            '\033[1;31m\n** LETRA JÁ INFORMADA, TENTE OUTRA **\n')
-                if cont_letra == len(lista_letras[cont_palavra]):
+                            '\033[1;31m\n** LETTER ALREADY INFORMED, TRY ANOTHER **\n')
+                if cont_letter == len(list_letters[cont_word]):
                     print('\033[1;32m** CONGRATULATIONS! **\n')
                     option = str.lower(
-                        input('\033[1;31m> DESEJA CONTINUAR? S/n -> '))
-                    if option != 's':
+                        input('\033[1;31m> DO YOU WISH TO CONTINUE? Y/n -> '))
+                    if option != 'y':
                         continuar = False
                     else:
-                        lista_letras_informadas = []
-                        cont_letra = 0
-                        cont_palavra = randrange(0, amount_palavras)
-                        palavra_incompleta = '_' * \
-                            len(lista_letras[cont_palavra])
-                        palavra_completa = ''
+                        list_letters_informed = []
+                        cont_letter = 0
+                        cont_word = randrange(0, amount_words)
+                        word_incomplete = '_' * \
+                            len(list_letters[cont_word])
+                        word_complete = ''
                         menu()
 
-            if initial_life > 6:
-                print('\033[1;36m\n** Suas chances acabaram **\n')
+            if canches == 0:
+                print('\033[1;36m\n** YOUR CHANCES ARE OVER **\n')
                 option = str.lower(
-                    input('\033[1;31m> Deseja recomeçar o jogo? S/n -> '))
-                if option != 's':
+                    input('\033[1;31m> WANT TO RESTART THE GAME? Y/n -> '))
+                if option != 'y':
                     continuar = False
                 else:
-                    lista_letras_informadas = []
-                    cont_letra = 0
-                    initial_life = 1
-                    cont_palavra = randrange(0, amount_palavras)
-                    palavra_incompleta = '_'*len(lista_letras[cont_palavra])
-                    palavra_completa = ''
+                    list_letters_informed = []
+                    cont_letter = 0
+                    life = 1
+                    canches = 6
+                    cont_word = randrange(0, amount_words)
+                    word_incomplete = '_'*len(list_letters[cont_word])
+                    word_complete = ''
                     menu()
         else:
             break
 
-    print('\033[1;33m\n** OBRIGADO PELA PREFERÊNCIA, VOLTE SEMPRE **\n')
+    print('\033[1;33m\n** THANK YOU FOR PREFERENCE, ALWAYS COME BACK! **\n')
 else:
     print(
-        '\033[1;33m\n** POR FAVOR, VERIFIQUE, SE HÁ PALAVRAS NO ARQUIVO, VOLTE MAIS TARDE! **\n')
+        '\033[1;33m\n** PLEASE CHECK, IF THERE ARE WORDS IN THE FILE, COME BACK LATER! **\n')
