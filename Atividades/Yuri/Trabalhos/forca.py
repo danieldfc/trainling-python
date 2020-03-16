@@ -40,11 +40,6 @@ def check_letter_already_entered(list_letters_informed, letter):
     return False
 
 
-life = 1
-canches = 6
-amount_words = -1
-
-
 def menu():
     global life, canches, amount_words
     print()
@@ -54,6 +49,10 @@ def menu():
     print(f'CHANCES = {canches}')
     print('='*30+'\n')
 
+
+life = 1
+canches = 6
+amount_words = -1
 
 file = open('arquivos/palavras_forca.txt', 'r')
 words = file.readlines()
