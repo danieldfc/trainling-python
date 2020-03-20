@@ -143,7 +143,7 @@ if amount_words >= 0:
                     input('\033[1;31m> WANT TO RESTART THE GAME? Y/n -> '))
                 clear()
                 if option != 'y':
-                    continuar = False
+                    break
                 else:
                     list_letters_informed = []
                     cont_letter = 0
