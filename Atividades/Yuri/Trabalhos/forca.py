@@ -1,4 +1,6 @@
 from random import randrange
+import platform
+from os import system
 
 
 def create_list_letters_word(word):
@@ -40,13 +42,17 @@ def check_letter_already_entered(list_letters_informed, letter):
     return False
 
 
+def clear():
+    if platform.system() == 'Linux' or 'MacOs':
+        system('clear')
+    else:
+        system('cls')
+
+
 def menu():
-    global life, canches, amount_words
     print()
     print('\033[1;33m='*30)
-    print(f'{"FORCE":^30}\n')
-    print(f'LIFE = {life}')
-    print(f'CHANCES = {canches}')
+    print(f'{"FORCE":^30}')
     print('='*30+'\n')
 
 
@@ -83,6 +89,8 @@ if amount_words >= 0:
                 if life > 6:
                     break
                 else:
+                    print(
+                        f'\033[1;36mLIFE = {life}\nCHANCES = {canches}\n')
                     if word_complete != '':
                         print(
                             f'\033[1;33mWORD SECRET -> {word_complete}\n')
@@ -91,11 +99,12 @@ if amount_words >= 0:
                             f'\033[1;33mWORD SECRET -> {word_incomplete}\n')
                     letter = str.lower(
                         input('\033[1;35m> REPORT A LETTER -> '))
+                    print()
                     list_letters_informed.append(letter)
-
-                    if check_letter_already_entered(list_letters_informed, letter) == False:
+                    clear()
+                    if not check_letter_already_entered(list_letters_informed, letter):
                         if len(letter) == 1:
-                            if verify_letter_word(list_letters[cont_word], letter) == False:
+                            if not verify_letter_word(list_letters[cont_word], letter):
                                 life += 1
                                 canches -= 1
                             else:
@@ -110,15 +119,7 @@ if amount_words >= 0:
                                         word_complete = word_complete[:indice] + \
                                             letter + word_complete[indice+1:]
                                 cont_letter += cont_character
-                            if life <= 6:
-                                print(
-                                    f'\033[1;36m\nLIFE = {life}\nCHANCES = {canches}\n')
-                                if cont_letter == len(list_letters[cont_word]):
-                                    print(
-                                        f'\033[1;33mWORD SECRET -> {word_complete}\n')
                         else:
-                            print(
-                                f'\033[1;36m\LIFE = {life}\nCHANCES = {canches}')
                             print(
                                 '\033[1;31m\n** PLEASE ENTER ONLY ONE LETTER **\n')
                     else:
@@ -128,6 +129,7 @@ if amount_words >= 0:
                     print('\033[1;32m** CONGRATULATIONS! **\n')
                     option = str.lower(
                         input('\033[1;31m> DO YOU WISH TO CONTINUE? Y/n -> '))
+                    clear()
                     if option != 'y':
                         continuar = False
                     else:
@@ -138,11 +140,11 @@ if amount_words >= 0:
                             len(list_letters[cont_word])
                         word_complete = ''
                         menu()
-
             if canches == 0:
-                print('\033[1;36m\n** YOUR CHANCES ARE OVER **\n')
+                print('\033[1;36m** YOUR CHANCES ARE OVER **\n')
                 option = str.lower(
                     input('\033[1;31m> WANT TO RESTART THE GAME? Y/n -> '))
+                clear()
                 if option != 'y':
                     continuar = False
                 else:
