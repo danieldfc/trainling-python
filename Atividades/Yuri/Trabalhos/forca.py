@@ -43,7 +43,7 @@ def check_letter_already_entered(list_letters_informed, letter):
 
 
 def clear():
-    if platform.system() == 'Linux' or 'MacOs':
+    if platform.system() == 'Linux' or platform.system() == 'Darwin':
         system('clear')
     else:
         system('cls')
@@ -74,72 +74,69 @@ for j in range(0, len(list_letters_words)):
 
 if amount_words >= 0:
     menu()
-    continuar = True
 
     while life <= canches:
         cont_word = randrange(0, amount_words)
+        cont_letter = 0
+        word_incomplete = '_' * len(list_letters[cont_word])
+        word_complete = ''
+        list_letters_informed = []
 
-        if continuar:
-            cont_letter = 0
-            word_incomplete = '_' * len(list_letters[cont_word])
-            word_complete = ''
-
-            list_letters_informed = []
-            while cont_letter < len(list_letters[cont_word]):
-                if life > 6:
-                    break
+        while cont_letter < len(list_letters[cont_word]):
+            if life > 6:
+                break
+            else:
+                print(
+                    f'\033[1;36mLIFE = {life}\nCHANCES = {canches}\n')
+                if word_complete != '':
+                    print(
+                        f'\033[1;33mWORD SECRET -> {word_complete}\n')
                 else:
                     print(
-                        f'\033[1;36mLIFE = {life}\nCHANCES = {canches}\n')
-                    if word_complete != '':
-                        print(
-                            f'\033[1;33mWORD SECRET -> {word_complete}\n')
-                    else:
-                        print(
-                            f'\033[1;33mWORD SECRET -> {word_incomplete}\n')
-                    letter = str.lower(
-                        input('\033[1;35m> REPORT A LETTER -> '))
-                    print()
-                    list_letters_informed.append(letter)
-                    clear()
-                    if not check_letter_already_entered(list_letters_informed, letter):
-                        if len(letter) == 1:
-                            if not verify_letter_word(list_letters[cont_word], letter):
-                                life += 1
-                                canches -= 1
-                            else:
-                                cont_character, indexes = verify_amount_character(
-                                    list_letters[cont_word], letter)
-                                for indice in indexes:
-                                    if word_complete == '':
-                                        word_complete = word_incomplete[:indice] + \
-                                            letter + \
-                                            word_incomplete[indice+1:]
-                                    else:
-                                        word_complete = word_complete[:indice] + \
-                                            letter + word_complete[indice+1:]
-                                cont_letter += cont_character
+                        f'\033[1;33mWORD SECRET -> {word_incomplete}\n')
+                letter = str.lower(
+                    input('\033[1;35m> REPORT A LETTER -> '))
+                print()
+                list_letters_informed.append(letter)
+                clear()
+                if not check_letter_already_entered(list_letters_informed, letter):
+                    if len(letter) == 1:
+                        if not verify_letter_word(list_letters[cont_word], letter):
+                            life += 1
+                            canches -= 1
                         else:
-                            print(
-                                '\033[1;31m\n** PLEASE ENTER ONLY ONE LETTER **\n')
+                            cont_character, indexes = verify_amount_character(
+                                list_letters[cont_word], letter)
+                            for indice in indexes:
+                                if word_complete == '':
+                                    word_complete = word_incomplete[:indice] + \
+                                        letter + \
+                                        word_incomplete[indice+1:]
+                                else:
+                                    word_complete = word_complete[:indice] + \
+                                        letter + word_complete[indice+1:]
+                            cont_letter += cont_character
                     else:
                         print(
-                            '\033[1;31m\n** LETTER ALREADY INFORMED, TRY ANOTHER **\n')
-                if cont_letter == len(list_letters[cont_word]):
-                    print('\033[1;32m** CONGRATULATIONS! **\n')
-                    option = str.lower(
-                        input('\033[1;31m> DO YOU WISH TO CONTINUE? Y/n -> '))
-                    clear()
-                    if option != 'y':
-                        continuar = False
-                    else:
-                        list_letters_informed = []
-                        cont_letter = 0
-                        cont_word = randrange(0, amount_words)
-                        word_incomplete = '_' * \
-                            len(list_letters[cont_word])
-                        word_complete = ''
-                        menu()
+                            '\033[1;31m\n** PLEASE ENTER ONLY ONE LETTER **\n')
+                else:
+                    print(
+                        '\033[1;31m\n** LETTER ALREADY INFORMED, TRY ANOTHER **\n')
+            if cont_letter == len(list_letters[cont_word]):
+                print('\033[1;32m** CONGRATULATIONS! **\n')
+                option = str.lower(
+                    input('\033[1;31m> DO YOU WISH TO CONTINUE? Y/n -> '))
+                clear()
+                if option != 'y':
+                    break
+                else:
+                    list_letters_informed = []
+                    cont_letter = 0
+                    cont_word = randrange(0, amount_words)
+                    word_incomplete = '_' * \
+                        len(list_letters[cont_word])
+                    word_complete = ''
+                    menu()
             if canches == 0:
                 print('\033[1;36m** YOUR CHANCES ARE OVER **\n')
                 option = str.lower(
